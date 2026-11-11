@@ -72,6 +72,55 @@ Tagged releases publish downloadable packages to the GitHub Releases page:
 
 Download the appropriate asset from the latest release. The AppImage can be run without installation:
 
+### Install directly from the terminal
+
+Set `VERSION` to the release version you want to install, without the `v` prefix:
+
+```bash
+VERSION=0.1.0
+```
+
+Debian and Ubuntu:
+
+```bash
+curl -fL -o "file-utility-suite_${VERSION}_amd64.deb" \
+  "https://github.com/Usman-Shah-Rashdi/PyUtilSuite/releases/download/v${VERSION}/file-utility-suite_${VERSION}_amd64.deb"
+sudo apt install "./file-utility-suite_${VERSION}_amd64.deb"
+```
+
+Fedora, RHEL, and openSUSE:
+
+```bash
+curl -fL -o "file-utility-suite-${VERSION}-1.x86_64.rpm" \
+  "https://github.com/Usman-Shah-Rashdi/PyUtilSuite/releases/download/v${VERSION}/file-utility-suite-${VERSION}-1.x86_64.rpm"
+sudo dnf install "./file-utility-suite-${VERSION}-1.x86_64.rpm"
+```
+
+To download and run the AppImage:
+
+```bash
+curl -fL -o "File-Utility-Suite-${VERSION}-x86_64.AppImage" \
+  "https://github.com/Usman-Shah-Rashdi/PyUtilSuite/releases/download/v${VERSION}/File-Utility-Suite-${VERSION}-x86_64.AppImage"
+chmod +x "File-Utility-Suite-${VERSION}-x86_64.AppImage"
+./"File-Utility-Suite-${VERSION}-x86_64.AppImage"
+```
+
+### Debian and Ubuntu
+
+After downloading the `.deb` package, install it from the terminal with:
+
+```bash
+sudo apt install ./file-utility-suite_*.deb
+```
+
+### Fedora, RHEL, and openSUSE
+
+After downloading the `.rpm` package, install it from the terminal with:
+
+```bash
+sudo dnf install ./file-utility-suite-*.rpm
+```
+
 ### AppImage
 
 ```bash
