@@ -25,14 +25,15 @@ jobs:
           name: windows-package
           path: dist/packages/*.zip
 
-  linux:
+linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Linux packaging tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y apt-utils dpkg-dev rpm createrepo-c python3-tk
+          # FIX 1: Added libfuse2 to the install list
+          sudo apt-get install -y apt-utils dpkg-dev rpm createrepo-c python3-tk libfuse2
           curl -L https://github.com/AppImage/appimagetool/releases/latest/download/appimagetool-x86_64.AppImage \
             -o /tmp/appimagetool
           chmod +x /tmp/appimagetool
@@ -41,6 +42,9 @@ jobs:
         with:
           python-version: "3.11"
       - name: Build Linux packages
+        # FIX 2: Added the ARCH environment variable
+        env:
+          ARCH: x86_64
         run: |
           chmod +x packaging/linux/*.sh
           packaging/linux/build-packages.sh "${GITHUB_REF_NAME#v}"
