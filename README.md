@@ -1,4 +1,4 @@
-# File Utility Pro
+# File Utility
 
 A desktop Tkinter utility for converting files and organizing folders. It supports light and dark themes, responsive layouts, rounded cards, activity logging, previewing organization changes, and undoing the last organization operation.
 
