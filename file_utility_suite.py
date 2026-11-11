@@ -586,6 +586,7 @@ class FileUtilitySuite:
         scrollbar.grid(row=0, column=1, sticky='ns')
         self.log_message("System initialized. Modern UI ready.")
 
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = FileUtilitySuite(root)
