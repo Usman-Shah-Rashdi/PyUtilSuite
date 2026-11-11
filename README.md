@@ -77,7 +77,7 @@ Download the appropriate asset from the latest release. The AppImage can be run 
 Set `VERSION` to the release version you want to install, without the `v` prefix:
 
 ```bash
-VERSION=0.1.0
+VERSION=1.0
 ```
 
 Debian and Ubuntu:
@@ -135,7 +135,7 @@ Build the Linux packages on an x86_64 Linux machine:
 ```bash
 sudo apt install python3-tk apt-utils dpkg-dev rpm
 chmod +x packaging/linux/*.sh
-packaging/linux/build-packages.sh 0.1.0
+packaging/linux/build-packages.sh 1.0
 ```
 
 The output is written to `dist/packages`. If `appimagetool` is installed, an AppImage is produced as well.
@@ -143,10 +143,10 @@ The output is written to `dist/packages`. If `appimagetool` is installed, an App
 Build the Windows portable ZIP from PowerShell:
 
 ```powershell
-.\packaging\build-windows.ps1 0.1.0
+.\packaging\build-windows.ps1 1.0
 ```
 
-Pushing a tag such as `v0.1.0` runs [`.github/workflows/release.yml`](./.github/workflows/release.yml), builds the Windows and Linux artifacts, and attaches them to a generated GitHub release with release notes. The workflow can also be started manually for a build, but publishing is performed for version tags.
+Pushing a tag such as `1.0` runs [`.github/workflows/release.yml`](./.github/workflows/release.yml), builds the Windows and Linux artifacts, and attaches them to a generated GitHub release with release notes. The workflow can also be started manually for a build, but publishing is performed for version tags.
 
 ## Usage notes
 
