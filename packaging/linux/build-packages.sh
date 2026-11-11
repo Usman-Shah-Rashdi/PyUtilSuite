@@ -76,8 +76,15 @@ if command -v appimagetool >/dev/null 2>&1; then
   mkdir -p "${APP_DIR}/usr/bin" "${APP_DIR}/usr/share/applications" \
     "${APP_DIR}/usr/share/icons/hicolor/scalable/apps"
   cp -a "${STAGE_DIR}/usr/." "${APP_DIR}/usr/"
+  cp "${ROOT_DIR}/packaging/linux/file-utility-suite.desktop" \
+    "${APP_DIR}/file-utility-suite.desktop"
   cp "${ROOT_DIR}/packaging/linux/file-utility-suite.svg" \
     "${APP_DIR}/file-utility-suite.svg"
+  cat > "${APP_DIR}/AppRun" <<'EOF'
+#!/usr/bin/env bash
+exec "$(dirname "$0")/usr/bin/file-utility-suite" "$@"
+EOF
+  chmod 0755 "${APP_DIR}/AppRun"
   appimagetool "${APP_DIR}" \
     "${OUT_DIR}/File-Utility-Suite-${VERSION}-x86_64.AppImage"
 fi
