@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=File Utility Suite
+Comment=Convert, organize, and manage files
+Exec=file-utility-suite
+Icon=file-utility-suite
+Terminal=false
+Categories=Utility;FileTools;
+StartupNotify=true
