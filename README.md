@@ -105,6 +105,7 @@ Update later with:
 sudo dnf upgrade
 ```
 
+no arch support for now. cant figure how to run workflow with arch 
 ### Arch Linux
 
 ```bash
