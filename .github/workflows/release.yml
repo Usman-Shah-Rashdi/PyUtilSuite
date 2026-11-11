@@ -25,14 +25,13 @@ jobs:
           name: windows-package
           path: dist/packages/*.zip
 
-linux:
+  linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install Linux packaging tools
         run: |
           sudo apt-get update
-          # FIX 1: Added libfuse2 to the install list
           sudo apt-get install -y apt-utils dpkg-dev rpm createrepo-c python3-tk libfuse2
           curl -L https://github.com/AppImage/appimagetool/releases/latest/download/appimagetool-x86_64.AppImage \
             -o /tmp/appimagetool
@@ -42,7 +41,6 @@ linux:
         with:
           python-version: "3.11"
       - name: Build Linux packages
-        # FIX 2: Added the ARCH environment variable
         env:
           ARCH: x86_64
         run: |
@@ -91,7 +89,7 @@ linux:
         run: |
           test -n "$REPOSITORY_GPG_PRIVATE_KEY"
           printf '%s' "$REPOSITORY_GPG_PRIVATE_KEY" | gpg --batch --import
-          GPG_KEY_ID="$(gpg --list-secret-keys --with-colons | awk -F: '$1 == \"sec\" {print $5; exit}')"
+          GPG_KEY_ID="$(gpg --list-secret-keys --with-colons | awk -F: '$1 == "sec" {print $5; exit}')"
           test -n "$GPG_KEY_ID"
           echo "GPG_KEY_ID=$GPG_KEY_ID" >> "$GITHUB_ENV"
       - name: Generate signed repositories
