@@ -2,3 +2,5 @@ Markdown>=3.5
 Pillow>=10.0
 PyMuPDF>=1.23
 PyYAML>=6.0
+pdf2docx>=0.5.8
+pywin32>=306; platform_system == "Windows"

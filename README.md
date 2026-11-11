@@ -6,7 +6,11 @@ A desktop Tkinter utility for converting files and organizing folders. It suppor
 
 - Image conversion between PNG, JPG, WEBP, BMP, and ICO
 - PDF text extraction
+- PDF to editable DOCX conversion
+- PDF to editable PPTX conversion through LibreOffice
 - Combining images into a PDF
+- DOC, DOCX, and ODT to PDF conversion through Microsoft Word or LibreOffice
+- PPT, PPTX, and ODP to PDF conversion through Microsoft PowerPoint or LibreOffice
 - Markdown to HTML conversion
 - JSON, CSV, and YAML conversion workflows
 - Folder organization by file type
@@ -16,6 +20,9 @@ A desktop Tkinter utility for converting files and organizing folders. It suppor
 - Automatic system light/dark theme detection
 - Manual light/dark theme toggle
 - Activity log and operation status display
+- Converter actions are filtered automatically from the selected file extensions;
+  unsupported actions are not shown, and available actions/target formats are
+  presented as buttons rather than dropdowns
 
 ## Requirements
 
@@ -155,6 +162,15 @@ Pushing a tag such as `v0.1.0` runs [`.github/workflows/release.yml`](./.github/
 - **Undo Last Organization** is available until another organization operation replaces the undo history or the application closes.
 - Converted files are written beside their source files.
 - Existing output files may be replaced by conversion operations.
+- PDF to DOCX uses `pdf2docx`. Office documents are converted with Microsoft Word
+  on Windows when available, otherwise LibreOffice must be installed and available
+  as `soffice` or `libreoffice` on the system PATH.
+- Presentations use Microsoft PowerPoint automation on Windows when available,
+  otherwise LibreOffice. Google Slides presentations can be downloaded as PPTX
+  or PDF and then converted here; direct Google account/API access is not
+  required.
+- PDF to PPTX conversion uses LibreOffice Draw and requires LibreOffice to be
+  installed and available as `soffice` or `libreoffice`.
 
 ## Validation
 
