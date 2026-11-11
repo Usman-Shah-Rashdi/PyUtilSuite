@@ -61,8 +61,10 @@ jobs:
           pacman -Sy --noconfirm --needed python python-pip tk base-devel git
       - name: Build Arch package
         run: |
-          python -m pip install -r requirements.txt pyinstaller
-          python -m PyInstaller --clean --noconfirm file_utility_suite.spec
+          python -m venv venv
+          ./venv/bin/pip install --upgrade pip
+          ./venv/bin/pip install -r requirements.txt pyinstaller
+          ./venv/bin/pyinstaller --clean --noconfirm file_utility_suite.spec
           chmod +x packaging/linux/build-arch-package.sh
           packaging/linux/build-arch-package.sh "${GITHUB_REF_NAME#v}"
       - uses: actions/upload-artifact@v4
