@@ -107,7 +107,7 @@ jobs:
       - name: Generate signed repositories
         run: |
           chmod +x packaging/linux/publish-repositories.sh
-          packaging/linux/publish-repositories.sh dist/packages dist/repository
+          bash -x packaging/linux/publish-repositories.sh dist/packages dist/repository
       - name: Publish repository branch
         uses: peaceiris/actions-gh-pages@v4
         with:
