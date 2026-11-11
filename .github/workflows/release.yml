@@ -58,20 +58,29 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Arch build tools
         run: |
-          pacman -Sy --noconfirm --needed python python-pip tk base-devel git
+          pacman -Sy --noconfirm --needed python python-pip tk base-devel git sudo
+          # Create a non-root user for makepkg
+          useradd -m builduser
+          echo "builduser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
       - name: Build Arch package
         run: |
-          python -m venv venv
-          ./venv/bin/pip install --upgrade pip
-          ./venv/bin/pip install -r requirements.txt pyinstaller
-          ./venv/bin/pyinstaller --clean --noconfirm file_utility_suite.spec
-          chmod +x packaging/linux/build-arch-package.sh
-          packaging/linux/build-arch-package.sh "${GITHUB_REF_NAME#v}"
+          # Change workspace ownership so the new user can write to it
+          chown -R builduser:builduser .
+          
+          # Run the build steps as the non-root user
+          sudo -E -u builduser bash -c "
+            python -m venv venv
+            ./venv/bin/pip install --upgrade pip
+            ./venv/bin/pip install -r requirements.txt pyinstaller
+            ./venv/bin/pyinstaller --clean --noconfirm file_utility_suite.spec
+            chmod +x packaging/linux/build-arch-package.sh
+            packaging/linux/build-arch-package.sh \"\${GITHUB_REF_NAME#v}\"
+          "
       - uses: actions/upload-artifact@v4
         with:
           name: arch-package
           path: dist/packages/*.pkg.tar.*
-
+          
   publish:
     needs: [windows, linux, arch]
     runs-on: ubuntu-latest
