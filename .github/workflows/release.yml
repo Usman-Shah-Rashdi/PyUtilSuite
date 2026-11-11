@@ -94,7 +94,7 @@ jobs:
       - name: Install repository tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y apt-utils dpkg-dev createrepo-c gnupg pacman-package-manager
+          sudo apt-get install -y apt-utils dpkg-dev createrepo-c gnupg pacman-package-manager zstd
       - name: Import repository signing key
         env:
           REPOSITORY_GPG_PRIVATE_KEY: ${{ secrets.REPOSITORY_GPG_PRIVATE_KEY }}
