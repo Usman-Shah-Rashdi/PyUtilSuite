@@ -1,0 +1,19 @@
+pkgname=file-utility-suite
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Desktop file conversion and organization utility'
+arch=('x86_64')
+url='https://github.com/Usman-Shah-Rashdi/PyUtilSuite'
+license=('MIT')
+depends=('tk')
+source=('file-utility-suite' 'file-utility-suite.desktop' 'file-utility-suite.svg')
+sha256sums=('SKIP' 'SKIP' 'SKIP')
+
+package() {
+  install -Dm755 "${srcdir}/file-utility-suite" \
+    "${pkgdir}/usr/bin/file-utility-suite"
+  install -Dm644 "${srcdir}/file-utility-suite.desktop" \
+    "${pkgdir}/usr/share/applications/file-utility-suite.desktop"
+  install -Dm644 "${srcdir}/file-utility-suite.svg" \
+    "${pkgdir}/usr/share/icons/hicolor/scalable/apps/file-utility-suite.svg"
+}
