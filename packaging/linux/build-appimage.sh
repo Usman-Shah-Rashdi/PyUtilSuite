@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/build-common.sh" "${1:-0.1.0}"
 
 require_x86_64
-ensure_python_build_environment
+build_binary
 
 APPIMAGETOOL="${ROOT_DIR}/dist/appimagetool"
 if [[ ! -x "${APPIMAGETOOL}" ]]; then

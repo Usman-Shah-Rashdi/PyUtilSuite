@@ -7,11 +7,14 @@ source "${SCRIPT_DIR}/build-common.sh" "${1:-0.1.0}"
 
 require_x86_64
 ensure_command rpmbuild rpm-build
-ensure_python_build_environment
+build_binary
 
-STAGE_DIR="${ROOT_DIR}/dist/rpm-stage"
-RPM_ROOT="${ROOT_DIR}/dist/rpm"
-rm -rf "${STAGE_DIR}" "${RPM_ROOT}"
+STAGE_DIR="$(mktemp -d "${TMPDIR:-/tmp}/file-utility-suite-stage.XXXXXX")"
+RPM_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/file-utility-suite-rpm.XXXXXX")"
+cleanup() {
+  rm -rf "${STAGE_DIR}" "${RPM_ROOT}"
+}
+trap cleanup EXIT
 stage_desktop_files "${STAGE_DIR}"
 mkdir -p "${RPM_ROOT}"/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 CHANGELOG_DATE="$(LC_ALL=C date -u '+%a %b %d %Y')"
@@ -27,10 +30,10 @@ BuildArch: x86_64
 Desktop file conversion and organization utility.
 
 %install
-mkdir -p %{buildroot}/usr/bin %{buildroot}/usr/share/applications %{buildroot}/usr/share/icons/hicolor/scalable/apps
-install -m 755 ${STAGE_DIR}/usr/bin/file-utility-suite %{buildroot}/usr/bin/file-utility-suite
-install -m 644 ${STAGE_DIR}/usr/share/applications/file-utility-suite.desktop %{buildroot}/usr/share/applications/file-utility-suite.desktop
-install -m 644 ${STAGE_DIR}/usr/share/icons/hicolor/scalable/apps/file-utility-suite.svg %{buildroot}/usr/share/icons/hicolor/scalable/apps/file-utility-suite.svg
+mkdir -p "%{buildroot}/usr/bin" "%{buildroot}/usr/share/applications" "%{buildroot}/usr/share/icons/hicolor/scalable/apps"
+install -m 755 ${STAGE_DIR}/usr/bin/file-utility-suite "%{buildroot}/usr/bin/file-utility-suite"
+install -m 644 ${STAGE_DIR}/usr/share/applications/file-utility-suite.desktop "%{buildroot}/usr/share/applications/file-utility-suite.desktop"
+install -m 644 ${STAGE_DIR}/usr/share/icons/hicolor/scalable/apps/file-utility-suite.svg "%{buildroot}/usr/share/icons/hicolor/scalable/apps/file-utility-suite.svg"
 
 %files
 /usr/bin/file-utility-suite

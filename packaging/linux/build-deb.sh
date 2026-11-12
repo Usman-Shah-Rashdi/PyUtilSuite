@@ -7,7 +7,7 @@ source "${SCRIPT_DIR}/build-common.sh" "${1:-0.1.0}"
 
 require_x86_64
 ensure_command dpkg-deb dpkg-dev
-ensure_python_build_environment
+build_binary
 
 STAGE_DIR="${ROOT_DIR}/dist/deb-root"
 rm -rf "${STAGE_DIR}"
