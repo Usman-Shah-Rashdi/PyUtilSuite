@@ -137,15 +137,29 @@ chmod +x File-Utility-Suite-*.AppImage
 
 ## Build packaged releases locally
 
-Build the Linux packages on an x86_64 Linux machine:
+The Linux build scripts detect Debian/Ubuntu (`apt`), Fedora/RHEL (`dnf`), and
+Arch (`pacman`) and install missing build tools. They currently produce
+x86_64 packages. The output is written to `dist/packages`.
+
+Build one format:
 
 ```bash
-sudo apt install python3-tk apt-utils dpkg-dev rpm
 chmod +x packaging/linux/*.sh
+packaging/linux/build-deb.sh 1.0
+packaging/linux/build-rpm.sh 1.0
+packaging/linux/build-appimage.sh 1.0
+packaging/linux/build-arch-package.sh 1.0
+```
+
+Or build the Debian package, RPM, and AppImage together:
+
+```bash
 packaging/linux/build-packages.sh 1.0
 ```
 
-The output is written to `dist/packages`. If `appimagetool` is installed, an AppImage is produced as well.
+The scripts install system dependencies using `sudo` when needed. For
+compatibility with older Linux systems, build inside the oldest Debian or
+Ubuntu environment you intend to support.
 
 Build the Windows portable ZIP from PowerShell:
 
